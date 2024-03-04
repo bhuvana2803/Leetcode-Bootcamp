@@ -1,0 +1,12 @@
+class Solution:
+    def videoStitching(self, clips: List[List[int]], time: int) -> int:
+        res = cur = i = 0
+        clips.sort()
+        while i < len(clips) and clips[i][0] <= cur and cur < time:
+            nxt = cur
+            while i < len(clips) and clips[i][0] <= cur:
+                nxt = max(clips[i][1], nxt)
+                i += 1
+            res += 1
+            cur = nxt
+        return res if cur >= time else -1
