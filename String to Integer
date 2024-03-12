@@ -1,0 +1,36 @@
+class Solution:
+    def myAtoi(self, s: str) -> int:
+        # remove leading whitespace
+        s = s.lstrip()
+    
+    # check if the string is empty after stripping whitespace
+        if len(s) == 0:
+            return 0
+    
+    # check if the first character is a sign
+        if s[0] == '-' or s[0] == '+':
+            sign = -1 if s[0] == '-' else 1
+            s = s[1:]  # remove the sign character
+        else:
+            sign = 1
+    
+    # read in digits until a non-digit character is encountered
+        digits = []
+        for c in s:
+            if c.isdigit():
+                digits.append(c)
+            else:
+                break
+    
+    # convert digits to an integer
+        if len(digits) == 0:
+            return 0
+        else:
+            num = int(''.join(digits))
+            num *= sign
+    
+    # clamp the integer to the range [-2**31, 2**31 - 1]
+        num = max(num, -2**31)
+        num = min(num, 2**31 - 1)
+    
+        return num
